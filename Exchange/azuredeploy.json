@@ -9,6 +9,13 @@
                 "description": "Exchange Mailbox storage size in GB."
             }
         }
+	"exchangeDomainName": {
+            "type": "string"
+            "defaultValue": "domain.com"
+            "metadata": {
+                "description": "Exchange domain - Make sure it is a domain you own"
+            }
+	}
     },
     "variables": {
         "exchangeVMCount": 1,
@@ -20,7 +27,6 @@
         "publicIPAddressType": "Dynamic",
         "subnetPrefix": "10.0.0.0/24",
         "subnetName": "[tolower(concat('sn', resourceGroup().name))]",
-        "exchangeDomainName": "[tolower(concat(resourceGroup().name, '.onmicrosoft.com'))]",
         "uniqueDnsNameForPublicIP": "[tolower(concat('dns', resourceGroup().name))]",
         "uniqueStorageAccountName": "[tolower(concat('sa', resourceGroup().name))]",
         "uniqueStorageAccountContainerName": "[tolower(concat('sc', resourceGroup().name))]",
@@ -270,7 +276,7 @@
                     "modulesUrl": "[variables('modulesUrlExchange')]",
                     "configurationFunction": "[variables('configurationFunctionExchange')]",
                     "properties": {
-                        "DomainName": "[variables('exchangeDomainName')]",
+                        "DomainName": "[parameters('exchangeDomainName')]",
                         "StorageSize": "[parameters('exchangeStorageSizeInGB')]",
                         "VMAdminCreds": {
                             "userName": "[variables('vmAdminUsername')]",
