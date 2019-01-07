@@ -29,7 +29,7 @@ The following resources are deployed as part of the solution
 + **Virtual Machine**: To run Jetstress test
 + **DSC Extension**: Install Exchange 2016
 
-## EXCHANGE (2016) INSTALLATION FOR AZURESTACK ##
+## EXCHANGE (2016) INSTALLATION FOR AZURE ##
 
 
 <b>DESCRIPTION</b>
