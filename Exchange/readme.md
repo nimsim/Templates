@@ -34,7 +34,7 @@ The following resources are deployed as part of the solution
 
 <b>DESCRIPTION</b>
 
-This template deploys requested number of VMs with public IP address in same virtual network. DSC installs Exchange 2016 Cumulative Update 1.
+This template deploys requested number of VMs with public IP address in same virtual network. DSC installs Exchange 2016 Cumulative Update 11.
 
 Please make sure to user unique resource group name for each deployment to avoid deployment failures due to name collisions of resources.
 
