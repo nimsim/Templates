@@ -10,8 +10,8 @@
             }
         }
 	"exchangeDomainName": {
-            "type": "string"
-            "defaultValue": "domain.com"
+            "type": "string",
+            "defaultValue": "domain.com",
             "metadata": {
                 "description": "Exchange domain - Make sure it is a domain you own"
             }
