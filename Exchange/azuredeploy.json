@@ -8,7 +8,7 @@
             "metadata": {
                 "description": "Exchange Mailbox storage size in GB."
             }
-        }
+        },
 	"exchangeDomainName": {
             "type": "string",
             "defaultValue": "domain.com",
