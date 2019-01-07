@@ -2,21 +2,21 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-	"exchangeStorageSizeInGB": {
-            "type": "int",
-            "defaultValue": 10,
+        "exchangeStorageSizeInGB": {
+            "type": "Int",
             "metadata": {
                 "description": "Exchange Mailbox storage size in GB."
-            }
+            },
+	    "defaultValue": 10
         },
-	"exchangeDomainName": {
-            "type": "string",
-            "defaultValue": "domain.com",
+        "exchangeDomainName": {
+            "type": "String",
             "metadata": {
                 "description": "Exchange domain - Make sure it is a domain you own"
-            }
-	}
-    },
+            },
+            "defaultValue": "domain.com"
+        }
+    },	  
     "variables": {
         "exchangeVMCount": 1,
         "imagePublisher": "MicrosoftWindowsServer",
