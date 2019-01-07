@@ -1,4 +1,4 @@
-# EXCHANGE 2016 CU1 INSTALLATION
+# EXCHANGE 2016 CU11 INSTALLATION
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnimsim%2FTemplates%2Fmaster%2FExchange%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
