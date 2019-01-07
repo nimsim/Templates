@@ -1,9 +1,9 @@
 # EXCHANGE 2016 CU1 INSTALLATION
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnimsim%2FAzureStack-QuickStart-Templates%2Fmaster%2Fexchange-2016-non-ha%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnimsim%2FTemplates%2Fmaster%2FExchange%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fnimsim%2FAzureStack-QuickStart-Templates%2Fmaster%2Fexchange-2016-non-ha%2Fazuredeploy.json" target="_blank">
+<a href="http://armviz.io/#/?load=https%3A%2%2Fraw.githubusercontent.com%2Fnimsim%2FTemplates%2Fmaster%2FExchange%2Fazuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
