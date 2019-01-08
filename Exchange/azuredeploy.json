@@ -77,10 +77,10 @@
             "properties": {
                 "accountType": "[variables('storageAccountType')]"
             }
-        },
-	    "tags": {
+	  "tags": {
           "CostCenter": "[parameters('CostCenter')]",
           "CreatedBy": "[parameters('CreatedBy')]"
+        },
       },
         {
             "apiVersion": "2015-06-15",
