@@ -2,19 +2,31 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "exchangeStorageSizeInGB": {
-            "type": "Int",
-            "metadata": {
-                "description": "Exchange Mailbox storage size in GB."
-            },
-	    "defaultValue": 10
-        },
         "exchangeDomainName": {
             "type": "String",
             "metadata": {
                 "description": "Exchange domain - Make sure it is a domain you own"
             },
             "defaultValue": "domain.com"
+        },
+        "CreatedBy": {
+            "type": "String",
+            "metadata": {
+                "description": "Type in the name of the person creating this resource"
+            }
+        },
+        "CostCenter": {
+            "type": "String",
+            "metadata": {
+                "description": "Type in the Cost Center of this resource"
+            }
+        },
+        "exchangeStorageSizeInGB": {
+            "type": "Int",
+            "metadata": {
+                "description": "Exchange Mailbox storage size in GB."
+            },
+	    "defaultValue": 10
         }
     },	  
     "variables": {
@@ -66,6 +78,10 @@
                 "accountType": "[variables('storageAccountType')]"
             }
         },
+	    "tags": {
+          "CostCenter": "[parameters('CostCenter')]",
+          "CreatedBy": "[parameters('CreatedBy')]"
+      },
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/publicIPAddresses",
