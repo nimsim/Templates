@@ -165,7 +165,6 @@
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[variables('virtualNetworkName')]",
             "location": "[variables('location')]",
-            "dependsOn": [ "[concat('Microsoft.Network/loadBalancers/', variables('nsgName'))]" ],
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
