@@ -128,7 +128,6 @@
             "type": "Microsoft.Network/loadBalancers",
             "name": "[variables('lbName')]",
             "location": "[variables('location')]",
-            "dependsOn": [ "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]" ],
       "properties": {
         "frontendIPConfigurations": [
           {
