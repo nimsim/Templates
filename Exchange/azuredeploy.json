@@ -112,7 +112,7 @@
                             "sourcePortRange": "*",
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "*",
+                            "destinationAddressPrefix": "443,80,587,65221,465,25",
                             "access": "Allow",
                             "priority": 101,
                             "direction": "Inbound"
