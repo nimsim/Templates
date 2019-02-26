@@ -110,7 +110,14 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRanges": "443,80,587,65221,465,25",
+                            "destinationPortRanges": [
+				    "443",
+				    "80",
+				    "587",
+				    "65221",
+				    "465,
+				    "25"
+				    ],
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
