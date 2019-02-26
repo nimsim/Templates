@@ -106,7 +106,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Exchange NSGrule",
+                        "name": "ExchPorts",
                         "properties": {
 			    "description": "Allowed ports by Microsoft",
                             "protocol": "*",
