@@ -99,14 +99,14 @@
             }
         },
         {
-            "apiVersion": "2017-10-01",
+            "apiVersion": "2018-08-01",
             "type": "Microsoft.Network/networkSecurityGroups",
             "name": "[variables('nsgName')]",
             "location": "[variables('location')]",
             "properties": {
                 "securityRules": [
                     {
-                        "name": "nsgsrule",
+                        "name": "Exchange NSGrule",
                         "properties": {
 			    "description": "Allowed ports by Microsoft",
                             "protocol": "*",
