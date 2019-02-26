@@ -80,3 +80,5 @@ function DownloadISO {
 }
 
 DownloadISO
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-TCP\" -Name PortNumber -Value 65221
+New-NetFirewallRule -DisplayName "RDP HighPort" -Direction Inbound –LocalPort 65221 -Protocol TCP -Action Allow
