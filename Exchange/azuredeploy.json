@@ -108,6 +108,7 @@
                     {
                         "name": "nsgsrule",
                         "properties": {
+			    "description": "Allowed ports by Microsoft",
                             "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRanges": [
@@ -115,9 +116,9 @@
 				    "80",
 				    "587",
 				    "65221",
-				    "465,
+				    "465",
 				    "25"
-				    ],
+			    ],
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
