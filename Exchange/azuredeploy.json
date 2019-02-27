@@ -191,14 +191,14 @@
       "name": "[concat(variables('loadbalancerName'))]",
       "type": "Microsoft.Network/loadBalancers",
       "location": "[variables('location')]",
-      "dependsOn": [ "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]" ],
+      "dependsOn": [ "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName')]" ],
       "properties": {
         "frontendIPConfigurations": [
           {
             "name": "LBFE",
             "properties": {
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName'),copyIndex()))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName')]"
               }
             }
           }
