@@ -224,7 +224,7 @@
             "name": "rdp",
             "properties": {
               "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/frontendIPConfigurations/LBFE')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName'),'/frontendIPConfigurations/LBFE')]"
               },
               "protocol": "Tcp",
               "frontendPort": "[variables('rdpPort')]",
