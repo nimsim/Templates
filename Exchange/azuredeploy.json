@@ -3,26 +3,26 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "exchangeDomainName": {
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "Exchange domain - Make sure it is a domain you own"
             },
             "defaultValue": "domain.com"
         },
         "CreatedBy": {
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "Type in the name of the person creating this resource"
             }
         },
         "CostCenter": {
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "Type in the Cost Center of this resource"
             }
         },
         "exchangeStorageSizeInGB": {
-            "type": "Int",
+            "type": "int",
             "metadata": {
                 "description": "Exchange Mailbox storage size in GB."
             },
@@ -110,7 +110,7 @@
                     {
                         "name": "ExchPorts",
                         "properties": {
-			    "description": "Allowed ports by Microsoft",
+			                "description": "Allowed ports by Microsoft",
                             "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRanges": [
@@ -202,7 +202,9 @@
       "name": "[concat(variables('loadbalancerName'))]",
       "type": "Microsoft.Network/loadBalancers",
       "location": "[variables('location')]",
-      "dependsOn": [ "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]" ],
+      "dependsOn": [ 
+          "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]" 
+        ],
       "properties": {
         "frontendIPConfigurations": [
           {
@@ -210,7 +212,7 @@
             "properties": {
               "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName'),copyIndex()))]"
-              },
+              }
             }
           }
         ],
