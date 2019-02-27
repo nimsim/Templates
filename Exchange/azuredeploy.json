@@ -26,7 +26,7 @@
             "metadata": {
                 "description": "Exchange Mailbox storage size in GB."
             },
-	    "defaultValue": 10
+	    "defaultValue": 50
         }
     },	  
     "variables": {
@@ -189,7 +189,7 @@
       "apiVersion": "2015-06-15",
       "name": "loadBalancer",
       "type": "Microsoft.Network/loadBalancers",
-      "location": "[parameters('location')]",
+      "location": "[variables('location')]",
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]"
       ],
