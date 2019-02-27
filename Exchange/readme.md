@@ -25,6 +25,7 @@ The following resources are deployed as part of the solution
 + **Network Security Group**: 
 + **Storage Account**: VHDs, Result blobs storage
 + **Network Interface**: 
++ **Loadbalancer**: To redirect RDP port from external 65221 to internal 3389
 + **Virtual Network**: 
 + **Virtual Machine**: To run Jetstress test
 + **DSC Extension**: Install Exchange 2016
