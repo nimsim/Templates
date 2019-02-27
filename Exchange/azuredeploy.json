@@ -188,7 +188,7 @@
         },
 	{
       "apiVersion": "2015-06-15",
-      "name": "[concat(variables('loadbalancerName'),copyIndex())]",
+      "name": "[concat(variables('loadbalancerName'))]",
       "type": "Microsoft.Network/loadBalancers",
       "location": "[variables('location')]",
       "dependsOn": [ "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]" ],
