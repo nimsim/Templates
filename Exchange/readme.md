@@ -26,8 +26,8 @@ The following resources are deployed as part of the solution
 + **Storage Account**: VHDs, Result blobs storage
 + **Network Interface**: 
 + **Loadbalancer**: To redirect RDP port from external 65221 to internal 3389
-+ **Virtual Network**: 
-+ **Virtual Machine**: To run Jetstress test
++ **Virtual Network**: Required for functioning VM
++ **Virtual Machine**: To have a VM running Exchange 2016
 + **DSC Extension**: Install Exchange 2016
 
 ## EXCHANGE (2016) INSTALLATION FOR AZURE ##
