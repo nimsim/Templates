@@ -167,7 +167,8 @@
             },
             "dependsOn": [
                 "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]",
-                "[concat('Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]"
+                "[concat('Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]",
+		"[concat('Microsoft.Network/loadBalancers/',variables('loadbalancerName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -180,12 +181,22 @@
                             },
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
-                            }
-                        }
+              		},
+              		"loadBalancerBackendAddressPools": [
+                	{
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName'),'/backendAddressPools/LBBAP')]"
+                	}
+              	       ],
+              		"loadBalancerInboundNatRules": [
+                	{
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName'),'/inboundNatRules/rdp')]"
+                	}
+              	      ]
                     }
+		  }  
                 ]
-            }
-        },
+              }
+            },
 	{
       "apiVersion": "2015-06-15",
       "name": "[concat(variables('loadbalancerName'))]",
