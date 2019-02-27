@@ -184,12 +184,12 @@
               		},
               		"loadBalancerBackendAddressPools": [
                 	{
-                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName'),'/backendAddressPools/LBBAP')]"
+                  	"id": "[resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'),'/backendAddressPools/LBBAP'))]"
                 	}
               	       ],
               		"loadBalancerInboundNatRules": [
                 	{
-                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName'),'/inboundNatRules/rdp')]"
+                  	"id": "[resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'),'/inboundNatRules/rdp'))]"
                 	}
               	      ]
                     }
