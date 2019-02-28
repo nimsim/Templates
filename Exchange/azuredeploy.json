@@ -203,7 +203,7 @@
       "type": "Microsoft.Network/loadBalancers",
       "location": "[variables('location')]",
       "dependsOn": [ 
-          "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'))]" 
+          "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]" 
         ],
       "properties": {
         "frontendIPConfigurations": [
