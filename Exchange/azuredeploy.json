@@ -30,7 +30,6 @@
         }
     },	  
     "variables": {
-        "exchangeVMCount": 1,
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
         "addressPrefix": "10.0.0.0/16",
@@ -87,12 +86,8 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[concat(variables('publicIPAddressName'),copyIndex())]",
+            "name": "[concat(variables('publicIPAddressName'))]",
             "location": "[variables('location')]",
-            "copy": {
-                "name": "publicIPLoop",
-                "count": "[variables('exchangeVMCount')]"
-            },
             "properties": {
                 "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
                 "dnsSettings": {
@@ -159,16 +154,12 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[concat(variables('vmNicName'),copyIndex())]",
+            "name": "[variables('vmNicName')]",
             "location": "[variables('location')]",
-            "copy": {
-                "name": "nicLoop",
-                "count": "[variables('exchangeVMCount')]"
-            },
             "dependsOn": [
-                "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]",
+                "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'))]",
                 "[concat('Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]",
-		"[concat('Microsoft.Network/loadBalancers/',variables('loadbalancerName'),copyIndex())]"
+		"[concat('Microsoft.Network/loadBalancers/',variables('loadbalancerName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -177,19 +168,19 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName'),copyIndex()))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName')))]"
                             },
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
               		},
               		"loadBalancerBackendAddressPools": [
                 	{
-                  	"id": "[resourceId('Microsoft.Network/loadBalancers/',concat(variables('loadbalancerName'),copyIndex(),'/backendAddressPools/LBBAP'))]"
+                  	"id": "[resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'),'/backendAddressPools/LBBAP'))]"
                 	}
               	       ],
               		"loadBalancerInboundNatRules": [
                 	{
-                  	"id": "[resourceId('Microsoft.Network/loadBalancers/',concat(variables('loadbalancerName'),copyIndex(),'/inboundNatRules/rdp'))]"
+                  	"id": "[resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'),'/inboundNatRules/rdp'))]"
                 	}
               	      ]
                     }
@@ -200,14 +191,10 @@
 	{
       "apiVersion": "2018-08-01",
       "type": "Microsoft.Network/loadBalancers",
-      "name": "[concat(variables('loadbalancerName'),copyIndex())]",
+      "name": "[variables('loadbalancerName')]",
       "location": "[variables('location')]",
-      "copy": {
-        "name": "lbLoop",
-        "count": "[variables('exchangeVMCount')]"
-    },
       "dependsOn": [ 
-        "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]" 
+        "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'))]" 
         ],
       "properties": {
         "frontendIPConfigurations": [
@@ -215,7 +202,7 @@
             "name": "LBFE",
             "properties": {
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName'),copyIndex()))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName')))]"
               }
             }
           }
@@ -230,7 +217,7 @@
             "name": "rdp",
             "properties": {
               "frontendIPConfiguration": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/',concat(variables('loadbalancerName'),copyIndex(),'/frontendIPConfigurations/LBFE'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'),'/frontendIPConfigurations/LBFE'))]"
               },
               "protocol": "Tcp",
               "frontendPort": "[variables('rdpPort')]",
@@ -244,15 +231,11 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[concat(variables('vmName'),copyIndex())]",
+            "name": "[variables('vmName')]",
             "location": "[variables('location')]",
-            "copy": {
-                "name": "vmLoop",
-                "count": "[variables('exchangeVMCount')]"
-            },
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/',variables('uniqueStorageAccountName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/',variables('vmNicName'),copyIndex())]"
+                "[concat('Microsoft.Network/networkInterfaces/',variables('vmNicName'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -273,7 +256,7 @@
                     "osDisk": {
                         "name": "osdisk",
                         "vhd": {
-                            "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmOsDiskName'),copyIndex(),'.vhd')]"
+                            "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmOsDiskName'),'.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -281,9 +264,9 @@
                     "dataDisks": [
                         {
                             "vhd": {
-                                "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmDataDiskName'),copyIndex(),'-0','.vhd')]"
+                                "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmDataDiskName'),'-0','.vhd')]"
                             },
-                            "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-0')]",
+                            "name": "[variables('vmDataDiskName'),'-0')]",
                             "createOption": "Empty",
                             "caching": "None",
                             "diskSizeGB": "[variables('vmDataDiskSize')]",
@@ -291,9 +274,9 @@
                         },
                         {
                             "vhd": {
-                                "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmDataDiskName'),copyIndex(),'-1','.vhd')]"
+                                "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmDataDiskName'),'-1','.vhd')]"
                             },
-                            "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-1')]",
+                            "name": "[variables('vmDataDiskName'),'-1')]",
                             "createOption": "Empty",
                             "caching": "None",
                             "diskSizeGB": "[variables('vmDataDiskSize')]",
@@ -304,7 +287,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('vmNicName'),copyIndex()))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('vmNicName')))]"
                         }
                     ]
                 }
@@ -313,14 +296,10 @@
 		{
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('vmName'),copyIndex(),'/CustomScriptExtension')]",
+            "name": "[concat(variables('vmName'),'/CustomScriptExtension')]",
             "location": "[variables('location')]",
-            "copy": {
-                "name": "customExtensionLoop",
-                "count": "[variables('exchangeVMCount')]"
-            },
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),copyIndex())]"
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Compute",
@@ -338,15 +317,11 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('vmName'),copyIndex(),'/dscExtension')]",
+            "name": "[concat(variables('vmName'),'/dscExtension')]",
             "location": "[variables('location')]",
-            "copy": {
-                "name": "extensionLoop",
-                "count": "[variables('exchangeVMCount')]"
-            },
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),copyIndex())]",
-				"[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),copyIndex(),'/extensions/','CustomScriptExtension')]"
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]",
+				"[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),'/extensions/','CustomScriptExtension')]"
             ],
             "properties": {
                 "publisher": "Microsoft.Powershell",
