@@ -175,12 +175,12 @@
               		},
               		"loadBalancerBackendAddressPools": [
                 	{
-                  	"id": "[resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'),'/backendAddressPools/LBBAP'))]"
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'))),'/backendAddressPools/LBBAP')]"
                 	}
               	       ],
               		"loadBalancerInboundNatRules": [
                 	{
-                  	"id": "[resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'),'/inboundNatRules/rdp'))]"
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',concat(variables('loadbalancerName'))),'/inboundNatRules/rdp')]"
                 	}
               	      ]
                     }
@@ -217,7 +217,7 @@
             "name": "rdp",
             "properties": {
               "frontendIPConfiguration": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers',concat(variables('loadBalancerName'),'/frontendIPConfigurations/LBFE'))]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',concat(variables('loadBalancerName'))),'/frontendIPConfigurations/LBFE')]"
               },
               "protocol": "Tcp",
               "frontendPort": "[variables('rdpPort')]",
