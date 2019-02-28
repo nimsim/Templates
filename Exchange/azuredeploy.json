@@ -168,7 +168,7 @@
             "dependsOn": [
                 "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]",
                 "[concat('Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]",
-		"[concat('Microsoft.Network/loadBalancers/',variables('loadbalancerName'))]"
+		"[concat('Microsoft.Network/loadBalancers/',variables('loadbalancerName'),copyIndex())]"
             ],
             "properties": {
                 "ipConfigurations": [
