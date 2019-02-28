@@ -199,8 +199,8 @@
             },
 	{
       "apiVersion": "2018-08-01",
-      "name": "[concat(variables('loadbalancerName'),copyIndex())]",
       "type": "Microsoft.Network/loadBalancers",
+      "name": "[concat(variables('loadbalancerName'),copyIndex())]",
       "location": "[variables('location')]",
       "copy": {
         "name": "lbLoop",
