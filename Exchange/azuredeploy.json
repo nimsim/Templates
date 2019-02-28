@@ -87,7 +87,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[concat(variables('publicIPAddressName'))]",
+            "name": "[concat(variables('publicIPAddressName'),copyIndex())]",
             "location": "[variables('location')]",
             "copy": {
                 "name": "publicIPLoop",
@@ -166,7 +166,7 @@
                 "count": "[variables('exchangeVMCount')]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'))]",
+                "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'),copyIndex())]",
                 "[concat('Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]",
 		"[concat('Microsoft.Network/loadBalancers/',variables('loadbalancerName'))]"
             ],
@@ -177,7 +177,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName')))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName'),copyIndex()))]"
                             },
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
@@ -203,7 +203,7 @@
       "type": "Microsoft.Network/loadBalancers",
       "location": "[variables('location')]",
       "dependsOn": [ 
-          "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIPAddressName'))]" 
+          "[concat('Microsoft.Network/networkInterfaces/',variables('vmNicName'),copyIndex())]" 
         ],
       "properties": {
         "frontendIPConfigurations": [
@@ -211,7 +211,7 @@
             "name": "LBFE",
             "properties": {
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName')))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(variables('publicIPAddressName'),copyIndex()))]"
               }
             }
           }
