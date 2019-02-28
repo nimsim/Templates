@@ -266,7 +266,7 @@
                             "vhd": {
                                 "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmDataDiskName'),'-0','.vhd')]"
                             },
-                            "name": "[variables('vmDataDiskName'),'-0')]",
+                            "name": "[concat(variables('vmDataDiskName'),'-0')]",
                             "createOption": "Empty",
                             "caching": "None",
                             "diskSizeGB": "[variables('vmDataDiskSize')]",
@@ -276,7 +276,7 @@
                             "vhd": {
                                 "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmDataDiskName'),'-1','.vhd')]"
                             },
-                            "name": "[variables('vmDataDiskName'),'-1')]",
+                            "name": "[concat(variables('vmDataDiskName'),'-1')]",
                             "createOption": "Empty",
                             "caching": "None",
                             "diskSizeGB": "[variables('vmDataDiskSize')]",
