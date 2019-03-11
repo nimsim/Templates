@@ -112,7 +112,6 @@
 				    "443",
 				    "80",
 				    "587",
-				    "65221",
 				    "465",
 				    "25"
 			    ],
@@ -122,7 +121,19 @@
                             "priority": 101,
                             "direction": "Inbound"
                         }
-                    }
+                    },
+                    {
+                        "name": "RDPBackend",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3389",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 102,
+                            "direction": "Inbound"                        
+               		}
                 ]
             }
         },
