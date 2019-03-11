@@ -134,6 +134,7 @@
                             "priority": 102,
                             "direction": "Inbound"                        
                		}
+		    }
                 ]
             }
         },
