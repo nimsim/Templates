@@ -233,48 +233,8 @@
               "backendPort": 3389,
               "enableFloatingIP": false
             }
-	  }
+		}
 		{
-		"name": "https",
-		"properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 443,
-              "backendPort": 443,
-              "enableFloatingIP": false
-          }
-			"name": "http",
-			"properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 80,
-              "backendPort": 80,
-              "enableFloatingIP": false
-          }
-			"name": "smtp",
-			"properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 25,
-              "backendPort": 25,
-              "enableFloatingIP": false
-          }
-			"name": "mailsubmit",
-			"properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 587,
-              "backendPort": 587,
-              "enableFloatingIP": false
-          }
 			"name": "https",
 			"properties": {
               "frontendIPConfiguration": {
@@ -284,7 +244,57 @@
               "frontendPort": 443,
               "backendPort": 443,
               "enableFloatingIP": false
-          }
+			}
+		}
+		{
+			"name": "http",
+			"properties": {
+              "frontendIPConfiguration": {
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": 80,
+              "backendPort": 80,
+              "enableFloatingIP": false
+			}
+		}
+		{
+			"name": "smtp",
+			"properties": {
+              "frontendIPConfiguration": {
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": 25,
+              "backendPort": 25,
+              "enableFloatingIP": false
+			}
+		}
+		{
+			"name": "mailsubmit",
+			"properties": {
+              "frontendIPConfiguration": {
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": 587,
+              "backendPort": 587,
+              "enableFloatingIP": false
+			}
+		}
+		{
+			"name": "https",
+			"properties": {
+              "frontendIPConfiguration": {
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": 443,
+              "backendPort": 443,
+              "enableFloatingIP": false
+			}
+		}
+		{
 			"name": "smtpsecure",
 			"properties": {
               "frontendIPConfiguration": {
@@ -295,6 +305,7 @@
               "backendPort": 465,
               "enableFloatingIP": false
           }
+		}
         ]
       }
      },
