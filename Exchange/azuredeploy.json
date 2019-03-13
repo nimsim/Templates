@@ -233,7 +233,7 @@
               "backendPort": 3389,
               "enableFloatingIP": false
             }
-		}
+		},
 		{
 			"name": "https",
 			"properties": {
@@ -245,7 +245,7 @@
               "backendPort": 443,
               "enableFloatingIP": false
 			}
-		}
+		},
 		{
 			"name": "http",
 			"properties": {
@@ -257,7 +257,7 @@
               "backendPort": 80,
               "enableFloatingIP": false
 			}
-		}
+		},
 		{
 			"name": "smtp",
 			"properties": {
@@ -269,7 +269,7 @@
               "backendPort": 25,
               "enableFloatingIP": false
 			}
-		}
+		},
 		{
 			"name": "mailsubmit",
 			"properties": {
@@ -281,7 +281,7 @@
               "backendPort": 587,
               "enableFloatingIP": false
 			}
-		}
+		},
 		{
 			"name": "https",
 			"properties": {
@@ -293,7 +293,7 @@
               "backendPort": 443,
               "enableFloatingIP": false
 			}
-		}
+		},
 		{
 			"name": "smtpsecure",
 			"properties": {
