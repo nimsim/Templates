@@ -346,6 +346,7 @@
                         "VMAdminCreds": {
                             "userName": "[variables('vmAdminUsername')]",
                             "password": "PrivateSettingsRef:vmAdminPassword"
+			"VmName": "[variables('vmName')]",
                         },
                         "Location": "[variables('location')]"
                     }
