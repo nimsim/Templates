@@ -283,18 +283,6 @@
 			}
 		},
 		{
-			"name": "https",
-			"properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 443,
-              "backendPort": 443,
-              "enableFloatingIP": false
-			}
-		},
-		{
 			"name": "smtpsecure",
 			"properties": {
               "frontendIPConfiguration": {
@@ -305,7 +293,7 @@
               "backendPort": 465,
               "enableFloatingIP": false
           }
-		}
+	}
         ]
       }
      },
