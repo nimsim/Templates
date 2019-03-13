@@ -233,8 +233,10 @@
               "backendPort": 3389,
               "enableFloatingIP": false
             }
-			"name": "https",
-			"properties": {
+	  }
+		{
+		"name": "https",
+		"properties": {
               "frontendIPConfiguration": {
                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName')),'/frontendIPConfigurations/LBFE')]"
               },
