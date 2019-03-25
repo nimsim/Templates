@@ -9,18 +9,6 @@
             },
             "defaultValue": "domain.com"
         },
-        "CreatedBy": {
-            "type": "string",
-            "metadata": {
-                "description": "Type in the name of the person creating this resource"
-            }
-        },
-        "CostCenter": {
-            "type": "string",
-            "metadata": {
-                "description": "Type in the Cost Center of this resource"
-            }
-        },
         "exchangeStorageSizeInGB": {
             "type": "int",
             "metadata": {
@@ -77,11 +65,7 @@
             "location": "[variables('location')]",
             "properties": {
                 "accountType": "[variables('storageAccountType')]"
-            },
-	  "tags": {
-          "CostCenter": "[parameters('CostCenter')]",
-          "CreatedBy": "[parameters('CreatedBy')]"
-        }
+            }
       },
         {
             "apiVersion": "2015-06-15",
