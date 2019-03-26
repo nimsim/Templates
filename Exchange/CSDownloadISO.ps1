@@ -79,4 +79,17 @@ function DownloadISO {
     }
 }
 
+$installPath = "$env:PUBLIC\Desktop\Hybrid"
+If(!(test-path $installPath))
+{
+      New-Item -ItemType Directory -Force -Path $installPath
+}
+
+$myHereString = @"
+Run this from command line for Certificates to be established on your server:
+wacs.exe --target manual --host mail.${domainName},owa.${domainName},autodiscover.${domainName} --store centralssl --centralsslstore "C:\Central SSL" --installation iis,script --installationsiteid 1 --script "./Scripts/ImportExchange.ps1" --scriptparameters "'{CertThumbprint}' 'IIS,SMTP,IMAP' 1 '{CacheFile}' '{CachePassword}' '{CertFriendlyName}'" 
+"@ | out-file -filepath $installPath\README.txt -append -width 200
 DownloadISO
+
+$runScript = $PSScriptRoot+"\aadcert.ps1"
+&$runScript
