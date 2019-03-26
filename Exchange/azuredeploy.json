@@ -363,7 +363,7 @@
                     "fileUris": [
                         "[variables('modulesUrlExchangeISODownload')]"
                     ],
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -destination ',variables('exchangeInstallerPath'))]"
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -DomainName ',parameters('exchangeDomainName'),' -destination ',variables('exchangeInstallerPath'))]"
                 }
             }
         },
