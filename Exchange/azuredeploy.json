@@ -364,7 +364,7 @@
                 "settings": {
                     "fileUris": [
                         "[variables('modulesUrlExchangeISODownload')]",
-			"[variables('modulesAADConnectCertificateDownload')]"
+			"[variables('modulesAADConnectCertUrlDownload')]"
                     ],
                     "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -DomainName ',parameters('exchangeDomainName'),' -destination ',variables('exchangeInstallerPath'))]"
                 }
