@@ -1,6 +1,8 @@
 param (
 	[Parameter(Mandatory)]
     [string]$uri,
+    	[Parameter(Mandator)]
+	[string]$domainname,
 	[Parameter(Mandatory)]
     [string]$destination
 )
