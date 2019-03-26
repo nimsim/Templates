@@ -91,5 +91,7 @@ wacs.exe --target manual --host mail.${domainName},owa.${domainName},autodiscove
 "@ | out-file -filepath $installPath\README.txt -append -width 200
 DownloadISO
 
+"Added Readme to Hybrid" | Tee-Object -FilePath $logFilePath -Append
 $runScript = $PSScriptRoot+"\aadcert.ps1"
+"Running AAD Connect download and Let's Encrypt download" | Tee-Object -FilePath $logFilePath -Append
 &$runScript
