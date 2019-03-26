@@ -366,7 +366,7 @@
                         "[variables('modulesUrlExchangeISODownload')]",
 			"[variables('modulesAADConnectCertUrlDownload')]"
                     ],
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -DomainName ',parameters('exchangeDomainName'),' -destination ',variables('exchangeInstallerPath'))]"
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -domainname ',parameters('exchangeDomainName'),' -destination ',variables('exchangeInstallerPath'))]"
                 }
             }
         },
