@@ -1,10 +1,10 @@
 param (
 	[Parameter(Mandatory)]
     [string]$uri,
-    	[Parameter(Mandator)]
-	[string]$domainname,
 	[Parameter(Mandatory)]
-    [string]$destination
+    [string]$destination,
+    [Parameter(Mandatory)]
+    [string]$domainname
 )
 
 function DownloadISO {
@@ -24,6 +24,11 @@ function DownloadISO {
 	
 	$destination = Join-Path $env:SystemDrive $destination
 	New-Item -Path $destination -ItemType Directory
+
+    $installPath = "$env:PUBLIC\Desktop\Hybrid"
+    New-Item -Path $installPath -ItemType Directory -Force 
+
+
 
 	$destinationFile = $null
     $result = $false
@@ -72,6 +77,14 @@ function DownloadISO {
     
         "Delete the temp file: $destinationFile" | Tee-Object -FilePath $logFilePath -Append
         Remove-Item -Path $destinationFile -Force
+
+        $myHereString = @"
+        Run this from command line for Certificates to be established on your server:
+        wacs.exe --target manual --host mail.${domainName},owa.${domainName},autodiscover.${domainName} --store centralssl --centralsslstore "C:\Central SSL" --installation iis,script --installationsiteid 1 --script "./Scripts/ImportExchange.ps1" --scriptparameters "'{CertThumbprint}' 'IIS,SMTP,IMAP' 1 '{CacheFile}' '{CachePassword}' '{CertFriendlyName}'" 
+"@ | out-file -filepath $installPath\README.txt -append -width 200
+
+        $runScript = $PSScriptRoot+"\aadcert.ps1"
+        &$runScript
     }
     else
     {
@@ -81,19 +94,4 @@ function DownloadISO {
     }
 }
 
-$installPath = "$env:PUBLIC\Desktop\Hybrid"
-If(!(test-path $installPath))
-{
-      New-Item -ItemType Directory -Force -Path $installPath
-}
-
-$myHereString = @"
-Run this from command line for Certificates to be established on your server:
-wacs.exe --target manual --host mail.${domainName},owa.${domainName},autodiscover.${domainName} --store centralssl --centralsslstore "C:\Central SSL" --installation iis,script --installationsiteid 1 --script "./Scripts/ImportExchange.ps1" --scriptparameters "'{CertThumbprint}' 'IIS,SMTP,IMAP' 1 '{CacheFile}' '{CachePassword}' '{CertFriendlyName}'" 
-"@ | out-file -filepath $installPath\README.txt -append -width 200
 DownloadISO
-
-"Added Readme to Hybrid" | Tee-Object -FilePath $logFilePath -Append
-$runScript = $PSScriptRoot+"\aadcert.ps1"
-"Running AAD Connect download and Let's Encrypt download" | Tee-Object -FilePath $logFilePath -Append
-&$runScript
