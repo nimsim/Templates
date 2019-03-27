@@ -18,6 +18,7 @@ If(!(test-path $path))
 }
 
 Expand-Archive $outpath -DestinationPath $path
+
 Remove-Item -Path $outpath
 
 "`nDOWNLOAD SUCCESSFUL!`n 
