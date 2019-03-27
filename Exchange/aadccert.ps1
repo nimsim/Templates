@@ -1,3 +1,4 @@
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $installPath = "$env:PUBLIC\Desktop\Hybrid"
 If(!(test-path $installPath))
 {
