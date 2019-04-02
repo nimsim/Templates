@@ -9,7 +9,7 @@ $url = "https://download.microsoft.com/download/B/0/0/B00291D0-5A83-4DE7-86F5-98
 Invoke-WebRequest -Uri $url -OutFile $outpath
 
 $outpath = "$installPath\ExchangeCertificatesTemp.zip"
-$url = "https://github.com/PKISharp/win-acme/releases/download/v2.0.4.227/win-acme.v2.0.4.227.zip"
+$url = "http://github.com/PKISharp/win-acme/releases/download/v2.0.4.227/win-acme.v2.0.4.227.zip"
 Invoke-WebRequest -Uri $url -OutFile $outpath
 
 $path = "$env:PUBLIC\Desktop\Hybrid\2.ExchangeCertificates"
