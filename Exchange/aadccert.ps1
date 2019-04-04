@@ -23,6 +23,7 @@ Expand-Archive $outpath -DestinationPath $path
 Remove-Item -Path $outpath
 
 $txtOutput = @"
+
 DOWNLOAD SUCCESSFUL!
 
 Please follow the guide on OneNote to continue:
