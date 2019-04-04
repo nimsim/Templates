@@ -390,6 +390,7 @@
                     "properties": {
                         "DomainName": "[parameters('exchangeDomainName')]",
                         "StorageSize": "[parameters('exchangeStorageSizeInGB')]",
+			"exchangeIsoUri": "[parameters('exchangeISOUri')]",
                         "VMAdminCreds": {
                             "userName": "[variables('vmAdminUsername')]",
                             "password": "PrivateSettingsRef:vmAdminPassword"
