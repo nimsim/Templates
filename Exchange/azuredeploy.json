@@ -36,13 +36,18 @@
         "vmName": "[concat('vm', resourceGroup().name)]",
         "vmOsDiskName": "[concat('od', resourceGroup().name)]",
         "vmDataDiskName": "[concat('dd', resourceGroup().name)]",
+        "dnsZoneName": "msfastlabs.com",
+        "dnsTTL": "3600",
+        "dnsMail": "mail.",
+        "dnsCNRecord": "[concat(variables('dnsMail'),parameters('exchangeDomainName'))]",
+        "dnsMXRecord": "[concat(variables('dnsMail'),parameters('exchangeDomainName'))]",
         "vmSize": "Standard_DS3_v2",
         "vmDataDiskSize": "25",
         "vmNicName": "[tolower(concat('nc', resourceGroup().name))]",
         "virtualNetworkName": "[tolower(concat('vn', resourceGroup().name))]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
-        "modulesPath": "https://raw.githubusercontent.com/nimsim/Templates/master/Exchange/",
+        "modulesPath": "https://raw.githubusercontent.com/nimsim/Templates/dev/Exchange/",
         "modulesExchange": "ExchangeWorkload.zip",
         "modulesUrlExchange": "[concat(variables('modulesPath'),variables('modulesExchange'))]",
         "modulesExchangeData": "ExchangeWorkload.psd1",
@@ -50,14 +55,14 @@
         "configurationFunctionExchange": "ExchangeWorkload.ps1\\InstallAndConfigureExchange",
         "nsgName": "[tolower(concat('ng', resourceGroup().name))]",
         "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
-	"loadbalancerName": "[tolower(concat('lb', resourceGroup().name))]",
-	"rdpPort": "65221",
+	    "loadbalancerName": "[tolower(concat('lb', resourceGroup().name))]",
+	    "rdpPort": "65221",
         "exchangeInstallerPath": "InstallerExchange",
         "exchangeISOUri": "https://download.microsoft.com/download/6/6/F/66F70200-E2E8-4E73-88F9-A1F6E3E04650/ExchangeServer2016-x64-cu11.iso",
         "modulesExchangeISODownload": "CSDownloadISO.ps1",
         "modulesUrlExchangeISODownload": "[concat(variables('modulesPath'),variables('modulesExchangeISODownload'))]",
-	"modulesAADConnectCertificateDownload": "aadccert.ps1",
-	"modulesAADConnectCertUrlDownload": "[concat(variables('modulesPath'),variables('modulesAADConnectCertificateDownload'))]"
+	    "modulesAADConnectCertificateDownload": "aadccert.ps1",
+	    "modulesAADConnectCertUrlDownload": "[concat(variables('modulesPath'),variables('modulesAADConnectCertificateDownload'))]"
     },
     "resources": [
         {
@@ -348,28 +353,6 @@
                 }
             }
         },
-		{
-            "apiVersion": "2015-06-15",
-            "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('vmName'),'/CustomScriptExtension')]",
-            "location": "[variables('location')]",
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
-            ],
-            "properties": {
-                "publisher": "Microsoft.Compute",
-                "type": "CustomScriptExtension",
-                "typeHandlerVersion": "1.4",
-                "autoUpgradeMinorVersion": true,
-                "settings": {
-                    "fileUris": [
-                        "[variables('modulesUrlExchangeISODownload')]",
-			"[variables('modulesAADConnectCertUrlDownload')]"
-                    ],
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -domainname ',parameters('exchangeDomainName'),' -destination ',variables('exchangeInstallerPath'))]"
-                }
-            }
-        },
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines/extensions",
@@ -403,6 +386,92 @@
                         "vmAdminPassword": "[variables('vmAdminPassword')]"
                     },
                     "DataBlobUri": "[variables('modulesUrlExchangeData')]"
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "type": "Microsoft.Network/dnsZones/MX",
+            "name": "[concat(parameters('dnsZoneName'),'/','@')]",
+            "properties": {
+                "TTL": "[variables('dnsTTL')]",
+                "MXRecords": [
+                    {
+                        "exchange": "[variables('dnsMXRecord')]",
+                        "preference": 0
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "type": "Microsoft.Network/dnsZones/TXT",
+            "name": "[concat(parameters('dnsZoneName'),'/','@')]",
+            "properties": {
+                "TTL": "[variables('dnsTTL')]",
+                "TXTRecords": [
+                    {
+                        "value": [
+                            "v=spf1 ip4:,[reference(resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))).IpAddress], include:spf.protection.outlook.com -all"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "type": "Microsoft.Network/dnsZones/CNAME",
+            "name": "[concat(parameters('dnsZoneName'),'/','autodiscover')]",
+            "properties": {
+                "TTL": "[variables('dnsTTL')]",
+                "CNAMERecord": {
+                        "cname": "[variables('dnsCNRecord')]"
+                    }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "type": "Microsoft.Network/dnsZones/CNAME",
+            "name": "[concat(parameters('dnsZoneName'),'/','owa')]",
+            "properties": {
+                "TTL": "[variables('dnsTTL')]",
+                "CNAMERecord": {
+                        "cname": "[variables('dnsCNRecord')]"
+                    }
+            }
+        },
+        {
+            "apiVersion": "2018-05-01",
+            "type": "Microsoft.Network/dnsZones/A",
+            "name": "[concat(parameters('dnsZoneName'),'/','mail')]",
+            "properties": {
+                "TTL": "[variables('dnsTTL')]",
+                "ARecords": [
+                    {
+                        "ipv4Address": "[reference(resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))).IpAddress]"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2015-06-15",
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(variables('vmName'),'/CustomScriptExtension')]",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.4",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "[variables('modulesUrlExchangeISODownload')]",
+                        "[variables('modulesAADConnectCertUrlDownload')]"
+                    ],
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -domainname ',parameters('exchangeDomainName'),' -destination ',variables('exchangeInstallerPath'))]"
                 }
             }
         }
