@@ -36,6 +36,7 @@
         "vmName": "[concat('vm', resourceGroup().name)]",
         "vmOsDiskName": "[concat('od', resourceGroup().name)]",
         "vmDataDiskName": "[concat('dd', resourceGroup().name)]",
+        "dnsResourceGroup": "RG-Testlabs-Domains",
         "dnsZoneName": "msfastlabs.com",
         "dnsTTL": "3600",
         "dnsMail": "mail.",
