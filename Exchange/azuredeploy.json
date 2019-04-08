@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "exchangeDomainName": {
+        "domainName": {
             "type": "string",
             "metadata": {
                 "description": "Exchange domain - Make sure it is a domain you own"
@@ -40,8 +40,8 @@
         "dnsZoneName": "msfastlabs.com",
         "dnsTTL": "3600",
         "dnsMail": "mail.",
-        "dnsCNRecord": "[concat(variables('dnsMail'),parameters('exchangeDomainName'))]",
-        "dnsMXRecord": "[concat(variables('dnsMail'),parameters('exchangeDomainName'))]",
+        "dnsCNRecord": "[concat(variables('dnsMail'),parameters('domainName'))]",
+        "dnsMXRecord": "[concat(variables('dnsMail'),parameters('domainName'))]",
         "vmSize": "Standard_DS3_v2",
         "vmDataDiskSize": "25",
         "vmNicName": "[tolower(concat('nc', resourceGroup().name))]",
@@ -372,7 +372,7 @@
                     "modulesUrl": "[variables('modulesUrlExchange')]",
                     "configurationFunction": "[variables('configurationFunctionExchange')]",
                     "properties": {
-                        "DomainName": "[parameters('exchangeDomainName')]",
+                        "DomainName": "[parameters('domainName')]",
                         "StorageSize": "[parameters('exchangeStorageSizeInGB')]",
 			"exchangeIsoUri": "[parameters('exchangeISOUri')]",
                         "VMAdminCreds": {
@@ -472,7 +472,7 @@
                         "[variables('modulesUrlExchangeISODownload')]",
                         "[variables('modulesAADConnectCertUrlDownload')]"
                     ],
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -domainname ',parameters('exchangeDomainName'),' -destination ',variables('exchangeInstallerPath'))]"
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -domainname ',parameters('domainName'),' -destination ',variables('exchangeInstallerPath'))]"
                 }
             }
         }
