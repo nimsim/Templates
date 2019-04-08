@@ -386,7 +386,7 @@
                         "value": "[parameters('domainName')]"
                     },
                     "adminUsername": {
-                        "value": "[variables('vmAdminUsername')]"
+                        "value": "[varaibles('vmAdminUsername')]"
                     },
                     "adminPassword": {
                         "value": "[variables('vmAdminPassword')]"
@@ -443,7 +443,7 @@
                 },
                 "parameters": {
                     "adminUsername": {
-                        "value": "[parameters('vmAdminUsername')]"
+                        "value": "[variables('vmAdminUsername')]"
                     },
                     "adminPassword": {
                         "value": "[variables('vmAdminPassword')]"
