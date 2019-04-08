@@ -7,51 +7,16 @@
             "metadata": {
                 "description": "The domain name"
             },
-            "defaultValue": "contoso.com"
-        },
-        "sqlServerServiceAccountUserName": {
-            "type": "string",
-            "metadata": {
-                "description": "The SQL Server Service account name"
-            },
-            "defaultValue": "sa"
-        },
-        "adminUsername": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the Administrator of the new VMs and Domain"
-            },
-            "defaultValue": "lcladmin"
-        },
-        "adminPassword": {
-            "type": "securestring",
-            "metadata": {
-                "description": "The password for the Administrator account of the new VMs and Domain"
-            },            
-            "defaultValue": "[concat('Subscription#',subscription().subscriptionId)]"
-        },
-        "sqlInstallationISOUri": {
-            "type": "string",
-            "metadata": {
-                "description": "The Uri to the SQL Server installation ISO. E.g http://care.dlservice.microsoft.com/dl/download/2/F/8/2F8F7165-BB21-4D1E-B5D8-3BD3CE73C77D/SQLServer2014SP1-FullSlipstream-x64-ENU.iso"
-            },
-            "defaultValue": "http://care.dlservice.microsoft.com/dl/download/2/F/8/2F8F7165-BB21-4D1E-B5D8-3BD3CE73C77D/SQLServer2014SP1-FullSlipstream-x64-ENU.iso"
-        },
-        "sharepoint2016DownloadLink": {
-            "type": "string",
-            "metadata": {
-                "description": "Direct download link for the SharePoint 2016 trial ISO. For example: http://download.msdn.microsoft.com/pr/en_sharepoint_server_2016_x64_dvd_3823428.iso?t=XXXXXXXXXXXXXXX"
-            },
-            "defaultValue": "https://download.microsoft.com/download/0/0/4/004EE264-7043-45BF-99E3-3F74ECAE13E5/officeserver.img"
-        },
-        "sharepoint2016ProductKey": {
-            "type": "string",
-            "metadata": {
-                "description": "Product key for SharePoint 2016 required for SharePoint setup. e.g. XXXX-XXXX-XXXX-XXXX "
-            }
+            "defaultValue": "msfastlabs.com"
         }
     },
     "variables": {
+        "sqlInstallationISOUri": "http://download.microsoft.com/download/7/9/F/79F4584A-A957-436B-8534-3397F33790A6/SQLServer2014SP3-FullSlipstream-x64-ENU.iso",
+        "sharepoint2016DownloadLink": "https://download.microsoft.com/download/0/0/4/004EE264-7043-45BF-99E3-3F74ECAE13E5/officeserver.img",
+        "sharepoint2016ProductKey": "NQGJR-63HC8-XCRQH-MYVCH-3J3QR",
+        "sqlServerServiceAccountUserName": "sa",
+        "vmAdminUsername": "sdfadm",
+        "vmAdminPassword": "k5ws2REYRRU%ae1u",
         "storageAccountType": "Standard_LRS",
         "adVMSize": "Standard_A1",
         "sqlVMSize": "Standard_A2",
@@ -63,8 +28,8 @@
         "vmNetworkSubnet": "10.0.0.0/24",
         "virtualNetworkAddressRange": "10.0.0.0/16",
         "primaryAdIpAddress": "10.0.0.4",
-        "sqlServerServiceAccountPassword": "[parameters('adminPassword')]",
-        "sharePointFarmPassphrasePassword": "[parameters('adminPassword')]",
+        "sqlServerServiceAccountPassword": "[variables('vmAdminPassword')]",
+        "sharePointFarmPassphrasePassword": "[variables('vmAdminPassword')]",
         "staticSubnetName": "[concat('SPSubNet',resourceGroup().name)]",
         "virtualNetworkName": "[concat('SPVnet',resourceGroup().name)]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
@@ -107,7 +72,7 @@
         "rpdNAT": "SPRDPNAT",
         "publicLBID": "[resourceId('Microsoft.Network/loadBalancers',variables('publicLBName'))]",
         "publiclbFEConfigID": "[concat(variables('publiclbID'),'/frontendIPConfigurations/',variables('lbFE'))]",
-        "rdpPort": 3389,
+        "rdpPort": 65221,
         "adRDPNATRuleID": "[concat(variables('publiclbID'),'/inboundNatRules/',variables('rpdNAT'))]",
         "nsgName": "[concat('SPNsg',resourceGroup().name)]",
         "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
@@ -122,7 +87,7 @@
         "spPubliclbFEConfigID": "[concat(variables('sppubliclbID'),'/frontendIPConfigurations/',variables('splbFE'))]",
         "spSiteProbeID": "[concat(variables('sppubliclbID'),'/probes/',variables('spSiteProbe'))]",
         "spAdminProbeID": "[concat(variables('sppubliclbID'),'/probes/',variables('spAdminProbe'))]",
-        "sprdpPort": 3390,
+        "sprdpPort": 65222,
         "sppublicBEAddressPoolID": "[concat(variables('sppubliclbID'),'/backendAddressPools/',variables('splbBE'))]",
         "spRDPNATRuleID": "[concat(variables('sppubliclbID'),'/inboundNatRules/',variables('sprdpNAT'))]",
         "spSourceDrive": "C:",
@@ -368,10 +333,10 @@
                 },
                 "parameters": {
                     "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                        "value": "[variables('vmAdminUsername')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "value": "[variables('vmAdminPassword')]"
                     },
                     "adRDPNATRuleID": {
                         "value": "[variables('adRDPNATRuleID')]"
@@ -421,10 +386,10 @@
                         "value": "[parameters('domainName')]"
                     },
                     "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                        "value": "[varaibles('vmAdminUsername')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "value": "[variables('vmAdminPassword')]"
                     },
                     "assetLocation": {
                         "value": "[variables('adAssetLocation')]"
@@ -478,10 +443,10 @@
                 },
                 "parameters": {
                     "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                        "value": "[parameters('vmAdminUsername')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "value": "[variables('vmAdminPassword')]"
                     },
                     "storageAccount": {
                         "value": "[variables('sqlStorageName')]"
@@ -529,10 +494,10 @@
                         "value": "[variables('storageAccountType')]"
                     },
                     "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                        "value": "[variables('vmAdminUsername')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "value": "[variables('vmAdminPassword')]"
                     },
                     "vmSize": {
                         "value": "[variables('spVMSize')]"
@@ -573,19 +538,19 @@
                         "value": "[parameters('sqlInstallationISOUri')]"
                     },
                     "sqlServerServiceAccountUserName": {
-                        "value": "[parameters('sqlServerServiceAccountUserName')]"
+                        "value": "[variables('sqlServerServiceAccountUserName')]"
                     },
                     "sqlServerServiceAccountPassword": {
                         "value": "[variables('sqlServerServiceAccountPassword')]"
                     },
                     "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                        "value": "[variables('vmAdminUsername')]"
                     },
                     "primaryAdIpAddress": {
                         "value": "[variables('primaryAdIpAddress')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "value": "[variables('vmAdminPassword')]"
                     },
                     "assetLocation": {
                         "value": "[variables('sqlAssetLocation')]"
@@ -622,7 +587,7 @@
                         "value": "[parameters('adminUsername')]"
                     },
                     "sharePointFarmAccountUserName": {
-                        "value": "[parameters('sqlServerServiceAccountUserName')]"
+                        "value": "[variables('sqlServerServiceAccountUserName')]"
                     },
                     "configDatabaseName": {
                         "value": "[variables('spconfigDatabaseName')]"
@@ -643,10 +608,10 @@
                         "value": "[variables('spSiteTemplateName')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "value": "[variables('vmAdminPassword')]"
                     },
                     "sharePointSetupUserAccountPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "value": "[variables('vmAdminPassword')]"
                     },
                     "sharePointFarmAccountPassword": {
                         "value": "[variables('sqlServerServiceAccountPassword')]"
@@ -664,13 +629,13 @@
                         "value": "[variables('spSourceFolder')]"
                     },
                     "ProductKey": {
-                        "value": "[parameters('sharepoint2016ProductKey')]"
+                        "value": "[variables('sharepoint2016ProductKey')]"
                     },
                     "assetLocation": {
                         "value": "[variables('spassetLocation')]"
                     },
                     "sharepoint2016SourceDLLink": {
-                        "value": "[parameters('sharepoint2016DownloadLink')]"
+                        "value": "[variables('sharepoint2016DownloadLink')]"
                     },
                     "primaryAdIpAddress": {
                         "value": "[variables('primaryAdIpAddress')]"
