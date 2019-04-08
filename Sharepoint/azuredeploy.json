@@ -50,7 +50,7 @@
         "vnetwithDNSTemplateURL": "[concat(variables('adAssetLocation'),'/vnet-with-dns-server.json')]",
         "updateVNetDNS1": "UpdateVNetDNS1",
         "updateVNetDNS1ID": "[concat('Microsoft.Resources/deployments/', variables('updateVNetDNS1'))]",
-        "sqlClusterVmName": "[concat('SPSQL',resourceGroup().name)]",
+        "sqlClusterVmName": "[concat('SQL',resourceGroup().name)]",
         "spTemplateURL": "[concat(variables('spassetLocation'),'/spVMTemplate.json')]",
         "spStorageName": "[tolower(concat('SPSA',resourceGroup().name))]",
         "spVmDeployment": "CreateSPVMs",
