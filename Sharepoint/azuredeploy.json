@@ -644,5 +644,19 @@
             }
         }
     ],
-    "outputs": { }
+    "outputs": {
+        "sharepointServerOutput": {
+        "value": "[variables('spVmName')]",
+        "type": "string"
+    },
+        "activeDirectoryServerOutput": {
+        "value": "[variables('adVmName')]",
+        "type": "string"
+    },
+        "sqlServerOutput": {
+        "value": "[variables('sqlClusterVmName')]",
+        "type": "string"
+    }
+        
+    }
 }
