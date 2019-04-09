@@ -28,7 +28,7 @@
         "vmNetworkSubnet": "10.0.0.0/24",
         "virtualNetworkAddressRange": "10.0.0.0/16",
         "primaryAdIpAddress": "10.0.0.4",
-        "resourceGroup": [replace((resourceGroup().name),'rg', '')],
+        "resourceGroup": "[replace(resourceGroup().name),'rg', '')]",
         "sqlServerServiceAccountPassword": "[variables('vmAdminPassword')]",
         "sharePointFarmPassphrasePassword": "[variables('vmAdminPassword')]",
         "staticSubnetName": "[concat('SPSubNet',resourceGroup().name)]",
