@@ -535,7 +535,7 @@
                         "value": "[parameters('domainName')]"
                     },
                     "sqlInstallationISOUri": {
-                        "value": "[parameters('sqlInstallationISOUri')]"
+                        "value": "[variables('sqlInstallationISOUri')]"
                     },
                     "sqlServerServiceAccountUserName": {
                         "value": "[variables('sqlServerServiceAccountUserName')]"
@@ -581,10 +581,10 @@
                         "value": "[parameters('domainName')]"
                     },
                     "adminUserName": {
-                        "value": "[parameters('adminUsername')]"
+                        "value": "[variables('adminUsername')]"
                     },
                     "sharePointSetupUserAccountUserName": {
-                        "value": "[parameters('adminUsername')]"
+                        "value": "[variables('adminUsername')]"
                     },
                     "sharePointFarmAccountUserName": {
                         "value": "[variables('sqlServerServiceAccountUserName')]"
