@@ -472,7 +472,7 @@
                         "[variables('modulesUrlScript')]",
                         "[variables('modulesAADConnectCertUrlDownload')]"
                     ],
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -domainname ',parameters('domainName'),' -destination ',variables('exchangeInstallerPath'))]"
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesUrlScript'),' -domainname ',parameters('domainName'),' -vmAdminUsername ',variables('vmAdminUsername'), ' -vmAdminPassword \"', variables('vmAdminPassword'), '\"')]"
                 }
             }
         }
