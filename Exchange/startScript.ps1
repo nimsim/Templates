@@ -20,5 +20,5 @@ wacs.exe --target manual --host mail.${domainName},owa.${domainName},autodiscove
 "@ | out-file -filepath $installPath\README.txt -append -width 200
 
 $runScript = $PSScriptRoot+"\aadccert.ps1"
-&$runScript $domainName $vmAdminCreds
+&$runScript $domainName
     
