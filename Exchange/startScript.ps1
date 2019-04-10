@@ -1,11 +1,18 @@
 Param(
-    [Parameter(Mandatory=$true)]
+    		[Parameter(Mandatory=$true)]
 		[String]$domainName,
 
 		[Parameter(Mandatory=$true)]
-		[String]$vmAdminCreds
+		[String]$vmAdminUsername,
+		
+		[Parameter(Mandatory=$true)]
+		[String]$vmAdminPassword
 )
-$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri "https://$exchangeDomainName/PowerShell/" -Authentication Kerberos -Credential $VMAdminCreds
+
+$password = ConvertTo-SecureString $vmAdminPassword -AsPlainText -Force
+$vmAdminCreds = New-Object System.Management.Automation.PSCredential("$env:USERDOMAIN\$vmAdminUsername", $password)
+
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri "https://$domainName/PowerShell/" -Authentication Kerberos -Credential $VMAdminCreds
 Import-PSSession $Session
 New-SendConnector -Name "To internet" -AddressSpaces * -Internet
 Remove-PSSession $Session
