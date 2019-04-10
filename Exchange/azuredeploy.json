@@ -393,7 +393,7 @@
         {
             "apiVersion": "2018-05-01",
             "type": "Microsoft.Network/dnsZones/MX",
-            "name": "[concat(parameters('dnsZoneName'),'/','@')]",
+            "name": "[concat(variables('dnsZoneName'),'/','@')]",
             "properties": {
                 "TTL": "[variables('dnsTTL')]",
                 "MXRecords": [
@@ -407,7 +407,7 @@
         {
             "apiVersion": "2018-05-01",
             "type": "Microsoft.Network/dnsZones/TXT",
-            "name": "[concat(parameters('dnsZoneName'),'/','@')]",
+            "name": "[concat(variables('dnsZoneName'),'/','@')]",
             "properties": {
                 "TTL": "[variables('dnsTTL')]",
                 "TXTRecords": [
@@ -422,7 +422,7 @@
         {
             "apiVersion": "2018-05-01",
             "type": "Microsoft.Network/dnsZones/CNAME",
-            "name": "[concat(parameters('dnsZoneName'),'/','autodiscover')]",
+            "name": "[concat(variables('dnsZoneName'),'/','autodiscover')]",
             "properties": {
                 "TTL": "[variables('dnsTTL')]",
                 "CNAMERecord": {
@@ -433,7 +433,7 @@
         {
             "apiVersion": "2018-05-01",
             "type": "Microsoft.Network/dnsZones/CNAME",
-            "name": "[concat(parameters('dnsZoneName'),'/','owa')]",
+            "name": "[concat(variables('dnsZoneName'),'/','owa')]",
             "properties": {
                 "TTL": "[variables('dnsTTL')]",
                 "CNAMERecord": {
@@ -444,7 +444,7 @@
         {
             "apiVersion": "2018-05-01",
             "type": "Microsoft.Network/dnsZones/A",
-            "name": "[concat(parameters('dnsZoneName'),'/','mail')]",
+            "name": "[concat(variables('dnsZoneName'),'/','mail')]",
             "properties": {
                 "TTL": "[variables('dnsTTL')]",
                 "ARecords": [
