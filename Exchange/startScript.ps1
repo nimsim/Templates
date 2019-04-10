@@ -3,7 +3,7 @@ Param(
 		[String]$domainName,
 
 		[Parameter(Mandatory=$true)]
-		[String]$VMAdminCreds
+		[String]$vmAdminCreds
 )
 $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri "https://$exchangeDomainName/PowerShell/" -Authentication Kerberos -Credential $VMAdminCreds
 Import-PSSession $Session
@@ -20,5 +20,5 @@ wacs.exe --target manual --host mail.${domainName},owa.${domainName},autodiscove
 "@ | out-file -filepath $installPath\README.txt -append -width 200
 
 $runScript = $PSScriptRoot+"\aadccert.ps1"
-&$runScript
+&$runScript $domainName $vmAdminCreds
     
