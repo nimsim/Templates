@@ -1,7 +1,14 @@
-param (
-	[Parameter(Mandatory)]
-	[string]$domainname
+Param(
+    [Parameter(Mandatory=$true)]
+		[String]$domainName,
+
+		[Parameter(Mandatory=$true)]
+		[String]$VMAdminCreds
 )
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri "https://$exchangeDomainName/PowerShell/" -Authentication Kerberos -Credential $VMAdminCreds
+Import-PSSession $Session
+New-SendConnector -Name "To internet" -AddressSpaces * -Internet
+Remove-PSSession $Session
 
 $installPath = "$env:PUBLIC\Desktop\Hybrid"
 New-Item -Path $installPath -ItemType Directory -Force 
