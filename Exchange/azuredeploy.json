@@ -37,11 +37,6 @@
         "vmOsDiskName": "[concat('od', resourceGroup().name)]",
         "vmDataDiskName": "[concat('dd', resourceGroup().name)]",
         "dnsResourceGroup": "RG-Testlabs-Domains",
-        "dnsZoneName": "msfastlabs.com",
-        "dnsTTL": "3600",
-        "dnsMail": "mail.",
-        "dnsCNRecord": "[concat(variables('dnsMail'),parameters('domainName'))]",
-        "dnsMXRecord": "[concat(variables('dnsMail'),parameters('domainName'))]",
         "vmSize": "Standard_DS3_v2",
         "vmDataDiskSize": "25",
         "vmNicName": "[tolower(concat('nc', resourceGroup().name))]",
@@ -374,7 +369,7 @@
                     "properties": {
                         "DomainName": "[parameters('domainName')]",
                         "StorageSize": "[parameters('exchangeStorageSizeInGB')]",
-			"exchangeIsoUri": "[parameters('exchangeISOUri')]",
+			            "exchangeIsoUri": "[parameters('exchangeISOUri')]",
                         "VMAdminCreds": {
                             "userName": "[variables('vmAdminUsername')]",
                             "password": "PrivateSettingsRef:vmAdminPassword"
@@ -391,65 +386,87 @@
             }
         },
         {
-            "apiVersion": "2018-05-01",
-            "type": "Microsoft.Network/dnsZones/MX",
-            "name": "[concat(variables('dnsZoneName'),'/','@')]",
-            "properties": {
-                "TTL": "[variables('dnsTTL')]",
-                "MXRecords": [
+        "apiVersion": "2017-05-10",
+        "name": "nestedTemplate",
+        "type": "Microsoft.Resources/deployments",
+        "resourceGroup": "RG-Testlabs-Domains",
+        "properties": {
+            "mode": "Incremental",
+            "template": {
+                "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {},
+                "variables": {
+                    "dnsZoneName": "msfastlabs.com",
+                    "dnsTTL": "3600",
+                    "dnsMail": "mail.",
+                    "dnsCNRecord": "[concat(variables('dnsMail'),parameters('domainName'))]",
+                    "dnsMXRecord": "[concat(variables('dnsMail'),parameters('domainName'))]"
+                },
+                "resources": [
                     {
-                        "exchange": "[variables('dnsMXRecord')]",
-                        "preference": 0
-                    }
-                ]
-            }
-        },
-        {
-            "apiVersion": "2018-05-01",
-            "type": "Microsoft.Network/dnsZones/TXT",
-            "name": "[concat(variables('dnsZoneName'),'/','@')]",
-            "properties": {
-                "TTL": "[variables('dnsTTL')]",
-                "TXTRecords": [
+                        "apiVersion": "2018-05-01",
+                        "type": "Microsoft.Network/dnsZones/MX",
+                        "name": "[concat(variables('dnsZoneName'),'/','@')]",
+                        "properties": {
+                            "TTL": "[variables('dnsTTL')]",
+                            "MXRecords": [
+                                {
+                                    "exchange": "[variables('dnsMXRecord')]",
+                                    "preference": 0
+                                }
+                            ]
+                        }
+                    },
                     {
-                        "value": [
-                            "v=spf1 ip4:,[reference(resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))).IpAddress], include:spf.protection.outlook.com -all"
-                        ]
-                    }
-                ]
-            }
-        },
-        {
-            "apiVersion": "2018-05-01",
-            "type": "Microsoft.Network/dnsZones/CNAME",
-            "name": "[concat(variables('dnsZoneName'),'/','autodiscover')]",
-            "properties": {
-                "TTL": "[variables('dnsTTL')]",
-                "CNAMERecord": {
-                        "cname": "[variables('dnsCNRecord')]"
-                    }
-            }
-        },
-        {
-            "apiVersion": "2018-05-01",
-            "type": "Microsoft.Network/dnsZones/CNAME",
-            "name": "[concat(variables('dnsZoneName'),'/','owa')]",
-            "properties": {
-                "TTL": "[variables('dnsTTL')]",
-                "CNAMERecord": {
-                        "cname": "[variables('dnsCNRecord')]"
-                    }
-            }
-        },
-        {
-            "apiVersion": "2018-05-01",
-            "type": "Microsoft.Network/dnsZones/A",
-            "name": "[concat(variables('dnsZoneName'),'/','mail')]",
-            "properties": {
-                "TTL": "[variables('dnsTTL')]",
-                "ARecords": [
+                        "apiVersion": "2018-05-01",
+                        "type": "Microsoft.Network/dnsZones/TXT",
+                        "name": "[concat(variables('dnsZoneName'),'/','@')]",
+                        "properties": {
+                            "TTL": "[variables('dnsTTL')]",
+                            "TXTRecords": [
+                                {
+                                    "value": [
+                                        "v=spf1 ip4:,[reference(resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))).IpAddress], include:spf.protection.outlook.com -all"
+                                    ]
+                                }
+                            ]
+                        }
+                    },
                     {
-                        "ipv4Address": "[reference(resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))).IpAddress]"
+                        "apiVersion": "2018-05-01",
+                        "type": "Microsoft.Network/dnsZones/CNAME",
+                        "name": "[concat(variables('dnsZoneName'),'/','autodiscover')]",
+                        "properties": {
+                            "TTL": "[variables('dnsTTL')]",
+                            "CNAMERecord": {
+                                    "cname": "[variables('dnsCNRecord')]"
+                                }
+                        }
+                    },
+                    {
+                        "apiVersion": "2018-05-01",
+                        "type": "Microsoft.Network/dnsZones/CNAME",
+                        "name": "[concat(variables('dnsZoneName'),'/','owa')]",
+                        "properties": {
+                            "TTL": "[variables('dnsTTL')]",
+                            "CNAMERecord": {
+                                    "cname": "[variables('dnsCNRecord')]"
+                                }
+                        }
+                    },
+                    {
+                        "apiVersion": "2018-05-01",
+                        "type": "Microsoft.Network/dnsZones/A",
+                        "name": "[concat(variables('dnsZoneName'),'/','mail')]",
+                        "properties": {
+                            "TTL": "[variables('dnsTTL')]",
+                            "ARecords": [
+                                {
+                                    "ipv4Address": "[reference(resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))).IpAddress]"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
