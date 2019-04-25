@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "exchangeDomainName": {
+        "domainName": {
             "type": "string",
             "metadata": {
                 "description": "Exchange domain - Make sure it is a domain you own"
@@ -366,7 +366,7 @@
                         "[variables('modulesUrlExchangeISODownload')]",
 			"[variables('modulesAADConnectCertUrlDownload')]"
                     ],
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -domainname ',parameters('exchangeDomainName'),' -destination ',variables('exchangeInstallerPath'))]"
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('modulesExchangeISODownload'),' -uri ',variables('exchangeISOUri'),' -domainname ',parameters('domainName'),' -destination ',variables('exchangeInstallerPath'))]"
                 }
             }
         },
@@ -388,7 +388,7 @@
                     "modulesUrl": "[variables('modulesUrlExchange')]",
                     "configurationFunction": "[variables('configurationFunctionExchange')]",
                     "properties": {
-                        "DomainName": "[parameters('exchangeDomainName')]",
+                        "DomainName": "[parameters('domainName')]",
                         "StorageSize": "[parameters('exchangeStorageSizeInGB')]",
                         "VMAdminCreds": {
                             "userName": "[variables('vmAdminUsername')]",
