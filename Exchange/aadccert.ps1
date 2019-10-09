@@ -1,9 +1,17 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $installPath = "$env:PUBLIC\Desktop\Hybrid"
+$SSLPath = "C:\CentralSSL"
+
 If(!(test-path $installPath))
 {
       New-Item -ItemType Directory -Force -Path $installPath
 }
+
+If(!(test-path $SSLPath))
+{
+      New-Item -ItemType Directory -Force -Path $SSLPath
+}
+
 $outpath = "$installPath\1.AADConnect.exe"
 $url = "https://download.microsoft.com/download/B/0/0/B00291D0-5A83-4DE7-86F5-980BC00DE05A/AzureADConnect.msi"
 Invoke-WebRequest -Uri $url -OutFile $outpath
