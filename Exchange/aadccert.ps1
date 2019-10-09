@@ -12,7 +12,7 @@ $outpath = "$installPath\ExchangeCertificatesTemp.zip"
 $url = "http://github.com/PKISharp/win-acme/releases/download/v2.0.4.227/win-acme.v2.0.4.227.zip"
 Invoke-WebRequest -Uri $url -OutFile $outpath
 
-$path = "$env:PUBLIC\Desktop\Hybrid\2.ExchangeCertificates"
+$path = $installPath+"\2.ExchangeCertificates"
 If(!(test-path $path))
 {
       New-Item -ItemType Directory -Force -Path $path
