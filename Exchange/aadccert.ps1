@@ -35,9 +35,9 @@ DOWNLOAD SUCCESSFUL!
 Please follow the guide on OneNote to continue:
 https://microsoft.sharepoint.com/teams/OfficePeople/_layouts/OneNote.aspx?id=%2Fteams%2FOfficePeople%2FSiteAssets%2FOffice%20People%20Notebook&wd=target%28Projects%2FTest%20Lab.one%7CA70B945C-4284-48F6-983A-30A0C55E78C1%2FExchange%202016%20Setup%20%2B%20Hybrid%20%26%20AADC%7C97D18BAD-BFC4-4C9E-92C5-AF81E1A13042%2F%29 `
 The Configuration/Installation order should be: 
-1. Change DNS
-2. Set up Azure AD Connect
-3. Set up Exchange Certificates
+1. Change DNS (If you haven't installed on Msfastlabs.com)
+2. Set up Exchange Certificates
+3. Set up Azure AD Connect
 4. Set up Exchange Hybrid
 "@
 
