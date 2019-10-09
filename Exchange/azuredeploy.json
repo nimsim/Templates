@@ -176,6 +176,21 @@
               		"loadBalancerInboundNatRules": [
                 	{
                   	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName')),'/inboundNatRules/rdp')]"
+                	},
+			{
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName')),'/inboundNatRules/http')]"
+                	},
+			{
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName')),'/inboundNatRules/https')]"
+                	},
+			{
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName')),'/inboundNatRules/mailsubmit')]"
+                	},
+			{
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName')),'/inboundNatRules/smtp')]"
+                	},
+			{
+                  	"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadbalancerName')),'/inboundNatRules/smtpsecure')]"
                 	}
               	      ]
                     }
