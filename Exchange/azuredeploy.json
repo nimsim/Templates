@@ -20,11 +20,11 @@
     "variables": {
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
-        "addressPrefix": "10.0.0.0/16",
+        "addressPrefix": "10.1.0.0/16",
         "storageAccountType": "Standard_LRS",
         "publicIPAddressName": "[tolower(concat('ip', resourceGroup().name))]",
         "publicIPAddressType": "Dynamic",
-        "subnetPrefix": "10.0.0.0/24",
+        "subnetPrefix": "10.1.0.0/24",
         "subnetName": "[tolower(concat('sn', resourceGroup().name))]",
         "uniqueDnsNameForPublicIP": "[tolower(concat('dns', resourceGroup().name))]",
         "uniqueStorageAccountName": "[tolower(concat('sa', resourceGroup().name))]",
